@@ -19,7 +19,7 @@ const publicPath = process.env.PUBLIC_PATH || "/";
 module.exports = {
   entry: getEntries(["./src/app"]),
   output: {
-    path: "/dist",
+    path: path.resolve(__dirname, '../dist/' + env),
     filename: 'index.[hash].js',
     publicPath: publicPath
   },
@@ -30,16 +30,13 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       use: [{
-        loader: 'babel-loader',
-        options: {
-          presets: ['es2015', 'stage-0', 'react']
-        }
+        loader: 'babel-loader'
       }]
     }]
   },
@@ -57,6 +54,13 @@ module.exports = {
       template: './src/index.ejs',
       filename: './index.html'
     }),
-    new ExtractTextPlugin('index.[contenthash].css')
+    new ExtractTextPlugin('index.[contenthash].css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };
