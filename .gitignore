@@ -1,0 +1,13 @@
+# IDE #
+.idea/
+.vscode/
+*.swp
+
+# Node Files #
+/node_modules
+
+# Coverage #
+/coverage/
+
+# Build folder #
+dist
