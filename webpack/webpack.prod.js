@@ -19,7 +19,7 @@ const publicPath = process.env.PUBLIC_PATH || "/";
 module.exports = {
   entry: getEntries(["./src/app"]),
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist/' + env),
     filename: 'index.[hash].js',
     publicPath: publicPath
   },
