@@ -17,7 +17,7 @@ const __karmaWebpackManifest__ = []; // eslint-disable-line
 const inManifest = (path) => ~__karmaWebpackManifest__.indexOf(path);
 
 // require all `tests/**/*.spec.js`
-const testsContext = require.context('../tests/', true, /\.spec\.(js|ts)$/);
+const testsContext = require.context('../tests/', true, /\.spec\.js$/);
 
 // only run tests that have changed after the first pass.
 const testsToRun = testsContext.keys().filter(inManifest)

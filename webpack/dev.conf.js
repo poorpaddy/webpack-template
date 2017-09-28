@@ -40,6 +40,12 @@ module.exports = {
       }]
     }, {
       test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+    },{
+      test: /\.jsx$/,
+      enforce: 'post',
+      include: path.resolve('./src'),
+      loader: 'istanbul-instrumenter-loader',
+      exclude: [/\.spec\.js$/, /node_modules/]
     }]
   },
   devServer: {

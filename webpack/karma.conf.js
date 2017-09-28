@@ -29,6 +29,12 @@ module.exports = function (config) {
       './karma-shim.js': ['webpack', 'sourcemap']
     },
 
+    client: {
+      mocha: {
+        timeout: 5000
+      }
+    },
+
     mochaReporter: {
       showDiff: true
     },
@@ -39,32 +45,33 @@ module.exports = function (config) {
       noInfo: true
     },
 
-    reporters: ["mocha"],
+    reporters: ["mocha", "coverage"],
+
+    mochaReporter: {
+      showDiff: true
+    },
 
     autoWatch: false,
 
     colors: true,
 
-    singleRun: true
-  };
-
-  _config.reporters.push("coverage");
-
-  _config.coverageReporter = {
-    dir: 'coverage/',
-    reporters: [
-      {
-        type: 'json',
-        dir: '../coverage',
-        subdir: 'json',
-        file: 'coverage-final.json'
-      },
-      {
-        type: 'html',
-        dir: '../coverage',
-        subdir: 'html'
-      }
-    ]
+    singleRun: true,
+    coverageReporter: {
+      dir: 'coverage/',
+      reporters: [
+        {
+          type: 'json',
+          dir: '../coverage',
+          subdir: 'json',
+          file: 'coverage-final.json'
+        },
+        {
+          type: 'html',
+          dir: '../coverage',
+          subdir: 'html'
+        }
+      ]
+    }
   };
 
   config.set(_config);
