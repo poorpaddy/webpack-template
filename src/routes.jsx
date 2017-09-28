@@ -1,9 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router';
-import {HomePage} from "./app/home.container";
+import { IndexRoute, Route } from 'react-router-dom';
+import Index from "./app/index.container";
+import {HomePage} from "./app/home/home.container";
 
 export default () => (
     <Route>
-      <Route path="/" component={HomePage}/>
+      <Index>
+        <Route path="/" component={HomePage}></Route>
+      </Index>
     </Route>
 )
