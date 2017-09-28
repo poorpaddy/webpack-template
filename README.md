@@ -22,6 +22,8 @@ Once dependencies are installed, a development server can be launched with the f
 npm run dev
 ```
 
+Once app started, you will be able to access the app at http://localhost:8080
+
 ### Starting a Production Server
 
 ```bash
