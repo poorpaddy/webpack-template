@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --inline --config ./webpack/dev.conf",
+    "dev": "NODE_ENV=development webpack-dev-server --hot --inline --config ./webpack/dev.conf",
     "production": "rimraf dist && NODE_ENV=production webpack --config ./webpack/prod.conf --progress --profile --bail",
     "test": "karma start ./webpack/karma.conf"
   },
