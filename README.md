@@ -19,10 +19,14 @@ npm install
 Once dependencies are installed, a development server can be launched with the following shell script. It will watch for changes to files in the `src/` folder.
 
 ```bash
-npm run dev
+npm run dev 
+```
+In case you got this Error: listen EACCES 127.0.0.1:443, please run under user 'sudo'
+```bash
+sudo npm run dev
 ```
 
-Once app started, you will be able to access the app at http://localhost:8080
+Once app started, you will be able to access the app at https://localhost
 
 ### Starting a Production Server
 
