@@ -2,22 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-function getEntries(entries) {
-  if (process.env.NODE_ENV === 'development') {
-    return entries.concat([
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server']
-    )
-  }
-  return entries;
-}
-
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
 
 module.exports = {
-  entry: getEntries(["./src/app"]),
+  entry: ["./src/app"],
   output: {
     path: "/dist",
     filename: 'index.[hash].js',
@@ -49,7 +38,9 @@ module.exports = {
     }]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    https: true,
+    port: 443
   },
   plugins: [
     new webpack.DefinePlugin({
