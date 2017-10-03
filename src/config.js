@@ -15,10 +15,10 @@ const environment = {
 module.exports = Object.assign({
   app: {
     head: {
-      title: 'CMSCode | Template',
+      title: 'Webpack | Template',
       meta: [
         { name: "description", content: "A simple template project." },
-        { title: 'CMSCode | Template' },
+        { title: 'Webpack | Template' },
         // <!-- Social: Facebook / Open Graph -->
         { property: "og:title", content: "Webpack React Template" },
         { property: "og:site_name", content: "Webpack React Template" },
