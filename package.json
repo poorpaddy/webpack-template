@@ -58,6 +58,7 @@
     "webpack-dev-server": "^2.8.2"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.4",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-immutable": "^1.6.0",
@@ -80,5 +81,9 @@
     "react-test-renderer": "^16.0.0",
     "sinon": "^4.0.0",
     "sinon-as-promised": "^4.0.3"
-  }
+  },
+  "browserlist": [
+    "last 3 versions",
+    "ie >= 10"
+  ]
 }
