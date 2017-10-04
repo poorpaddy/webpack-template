@@ -1,0 +1,17 @@
+{
+  "ignoreFiles": [],
+  "rules": {
+    "at-rule-semicolon-space-before": "never",
+    "at-rule-no-unknown": [
+      true, {
+      ignoreAtRules: ["include", "if", "else"]
+      }
+    ],
+    "at-rule-empty-line-before": [
+      "always", {
+      except: ["after-same-name", "blockless-after-same-name-blockless", "blockless-after-blockless", "first-nested"],
+      ignoreAtRules: ["include", "else"]
+      }
+    ]
+  },
+}
