@@ -1,0 +1,32 @@
+{
+  "extends": "eslint-config-semistandard",
+  "plugins": [
+    "react",
+    "chai-friendly"
+  ],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "classes": true,
+      "es6": true
+    }
+  },
+  "rules": {
+    "no-unused-expressions": 0,
+    "chai-friendly/no-unused-expressions": 2,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-filename-extension": [
+      1, { "extensions": [".js", ".jsx"] }
+    ],
+    "react/jsx-uses-react": 1
+  },
+  "globals": {}
+}

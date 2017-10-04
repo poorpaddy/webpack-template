@@ -11,3 +11,23 @@
 
 # Build folder #
 dist
+
+#IDE Specific files
+
+#SublimeText
+*.sublime-project
+*.sublime-workspace
+
+#IntelliJ
+.idea/
+*.iml
+atlassian-ide-plugin.xml
+*.ipr
+*.iws
+
+#Eclipse
+.project
+
+#OSX
+.DS_Store
+.vscode
