@@ -6,8 +6,8 @@ import About from '../about.container';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("About page: ", () => {
-  it("should load component", () => {
+describe('About page: ', () => {
+  it('should load component', () => {
     const component = mount(<About />);
     expect(component.find('div-for-testing')).to.exist;
   });
