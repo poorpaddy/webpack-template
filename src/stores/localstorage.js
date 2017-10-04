@@ -3,7 +3,6 @@ export const loadState = () => {
 
   try {
     serializedState = localStorage.getItem('state');
-    // eslint-disable-next-line
     !!serializedState && (serializedState = JSON.parse(serializedState));
   } catch (err) {
     console.log('Error loading from localStorage');
