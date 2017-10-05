@@ -1,9 +1,3 @@
 {
-  "presets": ["react", ["env", { "modules": false }]],
-  "env": {
-    "test": {
-      "plugins": ["istanbul"],
-      "presets": ["react", ["env"]] // https://github.com/vuejs-templates/webpack/issues/528
-    }
-  }
+  "presets": ['es2015', 'stage-0', 'react']
 }
