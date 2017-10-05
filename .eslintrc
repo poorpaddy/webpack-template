@@ -23,5 +23,9 @@
     ],
     "react/jsx-uses-react": 1
   },
-  "globals": {}
+  "globals": {
+    "localStorage": true,
+    "describe": true,
+    "it": true
+  }
 }
