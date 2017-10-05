@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --format node_modules/eslint-friendly-formatter --ext .jsx --ext .js src && stylelint ./src/**/*.scss",
-    "start": "NODE_ENV=development webpack-dev-server --hot --inline --config ./webpack/dev.conf",
-    "build": "rimraf dist && NODE_ENV=production webpack --config ./webpack/prod.conf --progress --profile --bail",
+    "start": "NODE_ENV=development webpack-dev-server --hot --inline --config ./webpack/local.conf",
+    "dev": "NODE_ENV=dev webpack --config ./webpack/dev.conf --progress --profile --bail",
+    "qa": "NODE_ENV=qa webpack --config ./webpack/qa.conf --progress --profile --bail",
+    "prod": "NODE_ENV=production webpack --config ./webpack/prod.conf --progress --profile --bail",
+    "build": "rimraf dist && npm run dev && npm run qa && npm run prod",
     "test": "karma start ./webpack/karma.conf",
     "prepush": "npm run lint && npm run test"
   },

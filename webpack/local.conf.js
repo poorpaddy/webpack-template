@@ -2,24 +2,13 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-function getEntries(entries) {
-  if (process.env.NODE_ENV === 'development') {
-    return entries.concat([
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server']
-    )
-  }
-  return entries;
-}
-
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
 
 module.exports = {
-  entry: getEntries(["./src/app"]),
+  entry: ["./src/app"],
   output: {
-    path: path.resolve(__dirname, '../dist/' + env),
+    path: "/dist",
     filename: 'index.[hash].js',
     publicPath: publicPath
   },
@@ -30,7 +19,7 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
@@ -40,10 +29,18 @@ module.exports = {
       }]
     }, {
       test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+    },{
+      test: /\.jsx$/,
+      enforce: 'post',
+      include: path.resolve('./src'),
+      loader: 'istanbul-instrumenter-loader',
+      exclude: [/\.spec\.js$/, /node_modules/]
     }]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    https: true,
+    port: 443
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -56,13 +53,6 @@ module.exports = {
       template: './src/index.ejs',
       filename: './index.html'
     }),
-    new ExtractTextPlugin('index.[contenthash].css'),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin()
+    new ExtractTextPlugin('index.[contenthash].css')
   ]
 };
