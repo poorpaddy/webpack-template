@@ -1,21 +1,16 @@
-require('babel-register')
-
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
-const data = require('../data')
 
 module.exports = {
-  entry: "./src/entry",
+  entry: "./src/app",
   output: {
-    path: "/dist",
-    filename: 'bundle.js',
-    publicPath: publicPath,
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, '../dist/' + env),
+    filename: 'index.[hash].js',
+    publicPath: publicPath
   },
   resolve: {
     modules: [
@@ -24,7 +19,7 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
@@ -33,14 +28,11 @@ module.exports = {
         loader: 'babel-loader'
       }]
     }, {
-      test: /\.(css|scss)$/,loader: ['style-loader', 'css-loader', 'sass-loader']
+      test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
     }]
   },
   devServer: {
-    historyApiFallback: true,
-    https: true,
-    port: 443,
-    inline: false
+    historyApiFallback: true
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -49,8 +41,17 @@ module.exports = {
         PUBLIC_PATH: JSON.stringify(publicPath)
       }
     }),
-    new ExtractTextPlugin('style.css'),
-    new StaticSiteGeneratorPlugin('bundle.js', data.routes),
-    new webpack.NoEmitOnErrorsPlugin()
+    new HtmlWebpackPlugin({
+      template: './src/index.ejs',
+      filename: './index.html'
+    }),
+    new ExtractTextPlugin('index.[contenthash].css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };

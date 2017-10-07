@@ -2,26 +2,18 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-function getEntries(entries) {
-  if (process.env.NODE_ENV === 'development') {
-    return entries.concat([
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server']
-    )
-  }
-  return entries;
-}
-
+const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
+const data = require('../data')
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
 
 module.exports = {
-  entry: getEntries(["./src/app"]),
+  entry: "./src/entry",
   output: {
     path: path.resolve(__dirname, '../dist/' + env),
-    filename: 'index.[hash].js',
-    publicPath: publicPath
+    filename: 'bundle.js',
+    publicPath: publicPath,
+    libraryTarget: 'umd'
   },
   resolve: {
     modules: [
@@ -52,10 +44,6 @@ module.exports = {
         PUBLIC_PATH: JSON.stringify(publicPath)
       }
     }),
-    new HtmlWebpackPlugin({
-      template: './src/index.ejs',
-      filename: './index.html'
-    }),
     new ExtractTextPlugin('index.[contenthash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -63,6 +51,7 @@ module.exports = {
       }
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes)
   ]
 };

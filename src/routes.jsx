@@ -6,7 +6,9 @@ import HomePage from './app/home/home.container';
 import FAQPage from './app/faq/faq.container';
 import AboutPage from './app/about/about.container';
 
-export default () => (
+// require('public/assets/scss/main.scss');
+
+module.exports = (
   <div>
     <Header />
     <div id="container">
@@ -17,3 +19,4 @@ export default () => (
     <Footer />
   </div>
 );
+

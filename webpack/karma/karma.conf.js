@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var webpackConfig = require('./dev.conf');
+var webpackConfig = require('../test.conf');
 
 module.exports = function (config) {
   var _config = {
@@ -10,7 +10,7 @@ module.exports = function (config) {
     reporters: ['mocha'],
 
     files: [
-      '../node_modules/phantomjs-polyfill/bind-polyfill.js',
+      '../../node_modules/phantomjs-polyfill/bind-polyfill.js',
       {pattern: './karma-shim.js', watched: false}
     ],
 
@@ -61,13 +61,13 @@ module.exports = function (config) {
       reporters: [
         {
           type: 'json',
-          dir: '../coverage',
+          dir: '../../coverage',
           subdir: 'json',
           file: 'coverage-final.json'
         },
         {
           type: 'html',
-          dir: '../coverage',
+          dir: '../../coverage',
           subdir: 'html'
         }
       ]
