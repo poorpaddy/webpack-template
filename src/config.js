@@ -20,9 +20,6 @@ module.exports = Object.assign({
         name: 'description',
         content: 'A simple template project.'
       },
-      {
-        title: 'Webpack | Template'
-      },
       // <!-- Social: Facebook / Open Graph -->
       {
         property: 'og:title',

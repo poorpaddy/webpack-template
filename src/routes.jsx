@@ -6,8 +6,6 @@ import HomePage from './app/home/home.container';
 import FAQPage from './app/faq/faq.container';
 import AboutPage from './app/about/about.container';
 
-// require('public/assets/scss/main.scss');
-
 module.exports = (
   <div>
     <Header />

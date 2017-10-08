@@ -1,16 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
-const data = require('../data')
+const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
+const data = require('../data')
 
 module.exports = {
   entry: "./src/entry",
   output: {
-    path: path.resolve(__dirname, '../dist/' + env),
+    path: "/dist",
     filename: 'bundle.js',
     publicPath: publicPath,
     libraryTarget: 'umd'
@@ -22,7 +21,7 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
@@ -31,11 +30,14 @@ module.exports = {
         loader: 'babel-loader'
       }]
     }, {
-      test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+      test: /\.(css|scss)$/,loader: ['style-loader', 'css-loader', 'sass-loader']
     }]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    https: true,
+    port: 443,
+    inline: false
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -44,14 +46,13 @@ module.exports = {
         PUBLIC_PATH: JSON.stringify(publicPath)
       }
     }),
-    new ExtractTextPlugin('index.[contenthash].css'),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new StaticSiteGeneratorPlugin('bundle.js', data.routes)
-  ]
+    new ExtractTextPlugin('style.css'),
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  }
 };

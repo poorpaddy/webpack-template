@@ -8,7 +8,6 @@ const Html = props =>
   <html>
     <head>
       <title>Webpack | Template</title>
-      <link rel="stylesheet" type="text/css" href="/style.css"/>
     </head>
     <body>
       <div id="root">
@@ -26,3 +25,7 @@ export default locals =>
       </Html>
     </StaticRouter>
   );
+
+if (typeof document != 'undefined') {
+  require('app');
+}

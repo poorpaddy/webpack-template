@@ -13,7 +13,7 @@ export const store = configureStore(loadState());
 render(
   <Provider store={store}>
     <Router history={hashHistory}>
-      {routes()}
+      {routes}
     </Router>
   </Provider>,
   document.getElementById('root')
