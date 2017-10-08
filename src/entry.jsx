@@ -6,9 +6,6 @@ const routes = require('routes');
 
 const Html = props =>
   <html>
-    <head>
-      <title>Webpack | Template</title>
-    </head>
     <body>
       <div id="root">
         {props.children}
