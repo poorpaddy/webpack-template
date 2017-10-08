@@ -61,10 +61,5 @@ module.exports = {
     new ExtractTextPlugin('style.css'),
     new StaticSiteGeneratorPlugin('bundle.js', data.routes, { meta: data.meta }),
     new webpack.NoEmitOnErrorsPlugin()
-  ],
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  }
+  ]
 };
