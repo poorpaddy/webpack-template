@@ -29,6 +29,18 @@ module.exports = {
       }]
     }, {
       test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+    }, {
+      test: /\.(jpg|png)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'images/[name].[ext]'
+      },
+    }, {
+      test: /\.(mp4)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'videos/[name].[ext]'
+      },
     }]
   },
   devServer: {
