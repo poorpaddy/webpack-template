@@ -26,6 +26,6 @@ export default locals =>
     </StaticRouter>
   );
 
-if (typeof document != 'undefined') {
+if (typeof document !== 'undefined') {
   require('app');
 }
