@@ -7,8 +7,9 @@ import About from '../about.container';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('About page: ', () => {
+  let location = { pathname: '/about'};
   it('should load component', () => {
-    const component = mount(<About />);
+    const component = mount(<About location={location}/>);
     expect(component.find('div-for-testing')).to.exist;
   });
 });
