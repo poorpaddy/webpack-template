@@ -6,7 +6,9 @@ import HomePage from './app/home/home.container';
 import FAQPage from './app/faq/faq.container';
 import AboutPage from './app/about/about.container';
 
-module.exports = (
+require('public/assets/scss/main.scss');
+
+const routes = (
   <div>
     <Header />
     <div id="container">
@@ -17,3 +19,5 @@ module.exports = (
     <Footer />
   </div>
 );
+
+module.exports = routes;

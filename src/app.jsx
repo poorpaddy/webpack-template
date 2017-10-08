@@ -6,8 +6,6 @@ import configureStore from 'stores/configureStore';
 import { loadState } from 'stores/localstorage';
 import { BrowserRouter as Router, hashHistory } from 'react-router-dom';
 
-require('public/assets/scss/main.scss');
-
 export const store = configureStore(loadState());
 
 render(

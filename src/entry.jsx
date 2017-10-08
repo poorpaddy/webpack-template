@@ -2,15 +2,14 @@ import React from 'react';
 import {StaticRouter} from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
 import _ from 'lodash';
-
-const data = require('./data');
-const routes = require('routes');
+import routes from './routes';
+import {meta} from './data';
 
 const Html = (props) => {
   // let's find the name of the url for which the html file is being generated
   // we will use that to find its meta details.
   let url = props.path;
-  let content = _.find(data.meta, { url: url });
+  let content = _.find(meta, { url: url });
   return (
     <html>
       <head>
@@ -39,6 +38,6 @@ export default locals =>
     </StaticRouter>
   );
 
-if (typeof document !== 'undefined') {
+if (document.getElementById('root')) {
   require('app');
 }
