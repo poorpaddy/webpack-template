@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
-const data = require('../data')
+const data = require('../src/data');
 
 module.exports = {
   entry: "./src/entry",
@@ -31,6 +31,18 @@ module.exports = {
       }]
     }, {
       test: /\.(css|scss)$/,loader: ['style-loader', 'css-loader', 'sass-loader']
+    }, {
+      test: /\.(jpg|png)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'images/[name].[ext]'
+      },
+    }, {
+      test: /\.(mp4)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'videos/[name].[ext]'
+      },
     }]
   },
   devServer: {
@@ -47,7 +59,7 @@ module.exports = {
       }
     }),
     new ExtractTextPlugin('style.css'),
-    new StaticSiteGeneratorPlugin('bundle.js', data.routes),
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes, { meta: data.meta }),
     new webpack.NoEmitOnErrorsPlugin()
   ],
   node: {

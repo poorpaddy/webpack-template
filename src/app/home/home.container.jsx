@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import config from 'config';
+import SEO from '../seo/seo.conponent';
 
 export default class HomePage extends Component {
   render () {
     return (
       <div>
-        <Helmet {...config.app.head} />
+        <SEO url={this.props.location.pathname}/>
         Home
       </div>
     );

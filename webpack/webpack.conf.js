@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
-const data = require('../data')
+const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
+const data = require('../src/data');
 const env = process.env.NODE_ENV || 'development';
 const publicPath = process.env.PUBLIC_PATH || "/";
 
@@ -31,6 +31,18 @@ module.exports = {
       }]
     }, {
       test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+    }, {
+      test: /\.(jpg|png)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'images/[name].[ext]'
+      },
+    }, {
+      test: /\.(mp4)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'videos/[name].[ext]'
+      },
     }]
   },
   devServer: {
@@ -51,6 +63,6 @@ module.exports = {
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new StaticSiteGeneratorPlugin('bundle.js', data.routes)
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes, { meta: data.meta })
   ]
 };
