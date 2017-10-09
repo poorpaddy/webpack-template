@@ -37,7 +37,3 @@ export default locals =>
       </Html>
     </StaticRouter>
   );
-
-if (document.getElementById('root')) {
-  require('app');
-}
