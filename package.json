@@ -8,8 +8,8 @@
     "start": "NODE_ENV=development webpack-dev-server --hot --config ./webpack/webpack.local.conf",
     "dev": "NODE_ENV=dev webpack --config ./webpack/webpack.conf --progress --profile --bail",
     "qa": "NODE_ENV=qa webpack --config ./webpack/webpack.conf --progress --profile --bail",
-    "prod": "NODE_ENV=production webpack --config ./webpack/webpack.conf --progress --profile --bail",
-    "build": "rimraf dist && npm run dev && npm run qa && npm run prod",
+    "production": "NODE_ENV=production webpack --config ./webpack/webpack.conf --progress --profile --bail",
+    "build": "rimraf dist && npm run dev && npm run qa && npm run production",
     "test": "karma start ./webpack/karma/karma.conf",
     "prepush": "npm run lint && npm run test"
   },
