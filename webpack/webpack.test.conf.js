@@ -30,8 +30,8 @@ module.exports = {
     }, {
       test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
     }, {
-      test: /\.(jpg|png)$/,
-      loader: 'file-loader',
+      test: /\.(jpe?g|png|gif|svg)(\?[a-z0-9]+)?$/,
+      loader: 'file-loader?limit=1048576',
       options: {
         name: 'images/[name].[ext]'
       },
