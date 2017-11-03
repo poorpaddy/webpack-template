@@ -1,8 +1,8 @@
 // ---------------------------------------
 // Test Environment Setup
 // ---------------------------------------
-import 'babel-polyfill'
-import chai from 'chai'
+import 'babel-polyfill';
+import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 
 chai.use(chaiImmutable);
@@ -22,4 +22,3 @@ const testsContext = require.context('../../src', true, /(test|spec)\.jsx?$/);
 // only run tests that have changed after the first pass.
 const testsToRun = testsContext.keys().filter(inManifest)
 ;(testsToRun.length ? testsToRun : testsContext.keys()).forEach(testsContext);
-

@@ -1,13 +1,12 @@
 require('babel-register');
-
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 const data = require('../src/data');
-const env = process.env.NODE_ENV || 'development';
-const publicPath = process.env.PUBLIC_PATH || "/";
-const JSDOM = require("jsdom").JSDOM;
+const env = process.env.NODE_ENV || 'dev';
+const publicPath = process.env.PUBLIC_PATH || '/';
+const JSDOM = require('jsdom').JSDOM;
 const dom = new JSDOM('');
 global.document = dom.window.document;
 global.window = document.defaultView;
@@ -16,7 +15,7 @@ global.self = global.window;
 global.navigator = global.window.navigator;
 
 module.exports = {
-  entry: "./src/entry",
+  entry: './src/entry',
   output: {
     path: path.resolve(__dirname, '../dist/' + env),
     filename: 'bundle.js',
@@ -26,9 +25,12 @@ module.exports = {
   resolve: {
     modules: [
       './src',
-      'node_modules',
+      'node_modules'
     ],
-    extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
+    extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico'],
+    alias: {
+      '~': 'node_modules'
+    }
   },
   devtool: 'source-map',
   module: {
@@ -39,19 +41,14 @@ module.exports = {
         loader: 'babel-loader'
       }]
     }, {
-      test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+      test: /\.(css|scss)$/,
+      loader: ['style-loader', 'css-loader', 'sass-loader']
     }, {
-      test: /\.(jpg|png)$/,
-      loader: 'file-loader',
+      test: /\.(jpe?g|png|gif|svg|ico)(\?[a-z0-9]+)?$/,
+      loader: 'file-loader?limit=1048576',
       options: {
-        name: 'images/[name].[ext]'
-      },
-    }, {
-      test: /\.(mp4)$/,
-      loader: 'file-loader',
-      options: {
-        name: 'videos/[name].[ext]'
-      },
+        name: 'images/[name]-[hash:8].[ext]'
+      }
     }]
   },
   devServer: {
@@ -69,9 +66,9 @@ module.exports = {
         warnings: false
       }
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin('bundle.css'),
-    new StaticSiteGeneratorPlugin('bundle.js', data.routes, { meta: data.meta })
+    new StaticSiteGeneratorPlugin('bundle.js', data.routes, { meta: data.meta }),
+    new ExtractTextPlugin('bundle.css')
   ]
 };

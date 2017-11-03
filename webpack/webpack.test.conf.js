@@ -2,11 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const env = process.env.NODE_ENV || 'development';
-const publicPath = process.env.PUBLIC_PATH || "/";
+const env = process.env.NODE_ENV || 'dev';
+const publicPath = process.env.PUBLIC_PATH || '/';
 
 module.exports = {
-  entry: "./src/app",
+  entry: './src/app',
   output: {
     path: path.resolve(__dirname, '../dist/' + env),
     filename: 'index.[hash].js',
@@ -15,7 +15,7 @@ module.exports = {
   resolve: {
     modules: [
       './src',
-      'node_modules',
+      'node_modules'
     ],
     extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
   },
@@ -25,22 +25,20 @@ module.exports = {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       use: [{
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        options: {
+          plugins: ['istanbul']
+        }
       }]
     }, {
-      test: /\.(css|scss)$/, loader: ['style-loader', 'css-loader', 'sass-loader']
+      test: /\.(css|scss)$/,
+      loader: ['style-loader', 'css-loader', 'sass-loader']
     }, {
-      test: /\.(jpg|png)$/,
-      loader: 'file-loader',
+      test: /\.(jpe?g|png|gif|svg)(\?[a-z0-9]+)?$/,
+      loader: 'file-loader?limit=1048576',
       options: {
-        name: 'images/[name].[ext]'
-      },
-    }, {
-      test: /\.(mp4)$/,
-      loader: 'file-loader',
-      options: {
-        name: 'videos/[name].[ext]'
-      },
+        name: 'images/[name]-[hash:8].[ext]'
+      }
     }]
   },
   devServer: {
@@ -64,6 +62,5 @@ module.exports = {
       }
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin()
   ]
 };
