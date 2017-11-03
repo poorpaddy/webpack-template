@@ -47,7 +47,8 @@ module.exports = {
       test: /\.(jpe?g|png|gif|svg|ico)(\?[a-z0-9]+)?$/,
       loader: 'file-loader?limit=1048576',
       options: {
-        name: 'images/[name]-[hash:8].[ext]'
+        publicPath: '', // this ideally would be blank or ../ based on route
+        name: 'img/[name]-[hash:8].[ext]'
       }
     }]
   },
