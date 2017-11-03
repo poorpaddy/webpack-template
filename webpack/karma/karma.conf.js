@@ -7,22 +7,21 @@ module.exports = function (config) {
 
     frameworks: ['mocha', 'chai', 'sinon'],
 
-    reporters: ['mocha'],
-
     files: [
       '../../node_modules/phantomjs-polyfill/bind-polyfill.js',
       {pattern: './karma-shim.js', watched: false}
     ],
 
     plugins: [
-      require("karma-webpack"),
-      require("karma-mocha"),
-      require("karma-mocha-reporter"),
-      require("karma-phantomjs-launcher"),
-      require("karma-sourcemap-loader"),
-      require("karma-chai"),
-      require("karma-sinon"),
-      require("karma-coverage")
+      require('karma-webpack'),
+      require('karma-mocha'),
+      require('karma-mocha-reporter'),
+      require('karma-phantomjs-launcher'),
+      require('karma-sourcemap-loader'),
+      require('karma-chai'),
+      require('karma-sinon'),
+      require('karma-coverage'),
+      require('karma-coverage-istanbul-reporter')
     ],
 
     preprocessors: {
@@ -45,32 +44,26 @@ module.exports = function (config) {
       noInfo: true
     },
 
-    reporters: ["mocha", "coverage"],
-
-    mochaReporter: {
-      showDiff: true
-    },
+    reporters: ['mocha', 'coverage-istanbul'],
 
     autoWatch: false,
 
     colors: true,
 
     singleRun: true,
-    coverageReporter: {
+    coverageIstanbulReporter: {
       dir: 'coverage/',
-      reporters: [
-        {
-          type: 'json',
-          dir: '../../coverage',
-          subdir: 'json',
-          file: 'coverage-final.json'
-        },
-        {
-          type: 'html',
-          dir: '../../coverage',
+      reports: ['cobertura', 'html'],
+      fixWebpackSourcePaths: true,
+      // skipFilesWithNoCoverage: true,
+      'report-config': {
+        html: {
           subdir: 'html'
+        },
+        cobertura: {
+          subdir: 'cobertura'
         }
-      ]
+      }
     }
   };
 

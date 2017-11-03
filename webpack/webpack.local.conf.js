@@ -1,13 +1,13 @@
 require('babel-register');
 
-const path = require('path');
+// const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
-const env = process.env.NODE_ENV || 'development';
-const publicPath = process.env.PUBLIC_PATH || "/";
+const env = process.env.NODE_ENV || 'dev';
+const publicPath = process.env.PUBLIC_PATH || '/';
 const data = require('../src/data');
-const JSDOM = require("jsdom").JSDOM;
+const JSDOM = require('jsdom').JSDOM;
 const dom = new JSDOM('');
 global.document = dom.window.document;
 global.window = document.defaultView;
@@ -16,9 +16,9 @@ global.self = global.window;
 global.navigator = global.window.navigator;
 
 module.exports = {
-  entry: "./src/entry",
+  entry: './src/entry',
   output: {
-    path: "/dist",
+    path: '/dist',
     filename: 'bundle.js',
     publicPath: publicPath,
     libraryTarget: 'umd'
@@ -26,9 +26,12 @@ module.exports = {
   resolve: {
     modules: [
       './src',
-      'node_modules',
+      'node_modules'
     ],
-    extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico']
+    extensions: ['.js', '.jsx', '.css', '.scss', '.svg', '.html', '.ico'],
+    alias: {
+      '~': 'node_modules'
+    }
   },
   devtool: 'eval-source-map',
   module: {
@@ -39,19 +42,14 @@ module.exports = {
         loader: 'babel-loader'
       }]
     }, {
-      test: /\.(css|scss)$/,loader: ['style-loader', 'css-loader', 'sass-loader']
+      test: /\.(css|scss)$/,
+      loader: ['style-loader', 'css-loader', 'sass-loader']
     }, {
-      test: /\.(jpe?g|png|gif|svg)(\?[a-z0-9]+)?$/,
+      test: /\.(jpe?g|png|gif|svg|ico)(\?[a-z0-9]+)?$/,
       loader: 'file-loader?limit=1048576',
       options: {
-        name: 'images/[name].[ext]'
-      },
-    }, {
-      test: /\.(mp4)$/,
-      loader: 'file-loader',
-      options: {
-        name: 'videos/[name].[ext]'
-      },
+        name: 'images/[name]-[hash:8].[ext]'
+      }
     }]
   },
   devServer: {
@@ -66,8 +64,8 @@ module.exports = {
         PUBLIC_PATH: JSON.stringify(publicPath)
       }
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin('bundle.css'),
     new StaticSiteGeneratorPlugin('bundle.js', data.routes, { meta: data.meta }),
-    new webpack.NoEmitOnErrorsPlugin()
   ]
 };
